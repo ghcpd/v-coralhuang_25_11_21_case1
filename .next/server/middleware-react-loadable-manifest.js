@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"pages\\\\index.tsx -> ../components/TodoApp\":{\"id\":\"pages\\\\index.tsx -> ../components/TodoApp\",\"files\":[\"static/chunks/components_TodoApp_tsx.js\"]}}"

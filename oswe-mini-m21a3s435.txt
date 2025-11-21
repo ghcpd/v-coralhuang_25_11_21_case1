@@ -1,0 +1,414 @@
+User: You are a web developer working inside a persistent code execution session.
+
+Goal
+Follow the user request to build or modify a web application or static webpage.
+Work iteratively: plan → edit → run → verify → refine.
+Keep each code change minimal, explain what you did, and ensure the app runs successfully after each step.
+Ensure the project includes automated tests to verify the correctness of modifications, a reusable environment, and a detailed README.
+The automated tests must validate whether the required changes have been implemented correctly, ensuring the deliverable is verified by code.
+
+Workspace
+Work within the current directory without specifying a root directory.
+Do not modify the original input.ts file directly. Create a new file for any changes or debugging.
+Detect project type:
+If the user requests a Next.js / React / TypeScript app, treat it as a Next.js project.
+If the user requests a pure HTML/CSS/JS page, treat it as a static HTML project.
+Entrypoints
+Next.js app: Create a new file (e.g., DebugToDoList.jsx) for debugging or modifications.
+Static HTML app: Create a new file (e.g., debug.html) for debugging or modifications.
+Dev Server Rules
+For Next.js projects
+Start command: cd . && nohup yarn dev -p 3000 > /tmp/nextjs.log 2>&1 &
+Verify it serves successfully on port 3000 (http://localhost:3000 → HTTP 200).
+If errors occur:
+Inspect logs with tail -n 200 /tmp/nextjs.log.
+Fix and re-run until successful.
+For Static HTML projects
+Start lightweight Python server: cd . && nohup python3 -m http.server 3000 > [html_server.log](http://_vscodecontentref_/1) 2>&1 &
+Verify the page loads on port 3000 (http://localhost:3000 → HTTP 200).
+Tail logs with tail -n 100 /tmp/html_server.log if needed.
+Testing Automation
+Testing Framework: Use Jest and React Testing Library for Next.js projects, or Playwright for static HTML projects.
+Test Commands:
+For Next.js: yarn test to run all tests.
+For static HTML: npx playwright test to run all tests.
+Correctness Verification:
+Write automated tests to verify if the required modifications have been implemented correctly.
+For example:
+Check if empty task validation is implemented.
+Verify that state immutability is maintained.
+Ensure that key props are added to list items.
+Confirm that Tailwind CSS classes are applied correctly.
+These tests should fail if the required changes are not implemented and pass once the changes are correctly applied.
+One-Command Execution:
+Provide a single command (e.g., npm run verify) to run all tests and verify correctness.
+Add this command to the scripts section of package.json:
+Reusable Environment
+Dependencies:
+Use package.json to define all dependencies.
+Include react, react-dom, tailwindcss, and testing libraries.
+Environment Setup:
+Provide a setup.sh script to initialize the environment:
+Environment Reset:
+Provide a reset.sh script to clean and reset the environment:
+README
+Project Overview:
+Describe the purpose of the project (To-Do List with React and Tailwind CSS).
+Setup Instructions:
+Include steps to clone the repository, install dependencies, and start the server.
+Testing Instructions:
+Explain how to run tests and interpret results.
+Include the npm run verify command for one-command execution.
+Usage:
+Provide a brief guide on how to use the app.
+Known Issues:
+List any known bugs or limitations.
+Step-by-Step Method
+Understand & Plan
+
+Restate the user’s goal.
+Determine project type (Next.js vs HTML).
+Draft a short implementation plan and key files to modify.
+Setup / Inspection
+
+Ensure necessary base files exist (e.g., package.json for Next.js, or index.html for static).
+Initialize minimal working structure if missing.
+Implementation
+
+Edit or create files incrementally.
+Keep commits atomic and well-commented.
+Always ensure syntax correctness and build success before continuing.
+Run & Verify
+
+Start or restart the correct dev server.
+Check that http://localhost:3000 responds successfully.
+Fix any compile or runtime errors immediately.
+UI/UX
+
+Create visually stunning, modern designs with attention to aesthetics.
+Use proper color schemes, gradients, and visual hierarchy for engaging interfaces.
+Apply consistent spacing, typography, and component styling with Tailwind CSS.
+Implement smooth animations and transitions for professional polish.
+Ensure responsive layouts that look great on all screen sizes.
+Use semantic HTML and accessible components for usability.
+Add visual feedback for interactions (hover states, loading animations, etc.).
+Handle edge cases gracefully with elegant error states and empty data displays.
+Focus on clean, uncluttered layouts with proper whitespace and visual balance.
+Deliverables
+
+A working webapp served on port 3000.
+Automated tests with clear instructions to run them.
+Reusable environment setup and reset scripts.
+A detailed README file.
+Important Notes
+Work within the current directory without specifying a root directory.
+Do not modify the original input.ts file directly. Create a new file for any changes or debugging.
+Better first analyze the user request and create a plan for the webapp.
+Better identify relevant files and functions in the workspace before making changes.
+
+
+GitHub Copilot: Created 7 todos
+
+Searched for files matching `**/*`, 4 matches
+
+Read [](file:///c%3A/Bug_Bash/25_11_21/v-coralhuang_25_11_21_case1/package.json)
+
+Starting: *Inspect workspace files* (1/7)
+
+Starting: *Add new debug React component file* (2/7)
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Starting: *Set up Tailwind and testing dependencies in package.json* (3/7)
+
+Ran terminal command: npm install --no-audit --no-fund
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm install --no-audit --no-fund --legacy-peer-deps
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Continue to iterate?
+[object Object]
+
+Made changes.
+
+User: @agent Continue: "Continue to iterate?"
+
+GitHub Copilot: Ran terminal command: npm install --no-audit --no-fund --legacy-peer-deps
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Read [](file:///c%3A/Bug_Bash/25_11_21/v-coralhuang_25_11_21_case1/package.json)
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm install --no-audit --no-fund --legacy-peer-deps
+
+Ran terminal command: npm test --silent
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm install --no-audit --no-fund --legacy-peer-deps
+
+Ran terminal command: npm test --silent
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm test --silent
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm test --silent
+
+Starting: *Start dev server and run test verification* (6/7)
+
+Ran terminal command: npm run dev --silent
+
+Ran terminal command: powershell -Command "(Invoke-WebRequest -UseBasicParsing -Uri http://localhost:3000 -TimeoutSec 2).StatusCode"
+
+Ran terminal command: powershell -Command "(Invoke-WebRequest -UseBasicParsing -Uri http://localhost:3000 -TimeoutSec 5).StatusCode"
+
+Ran terminal command: npm run dev
+
+Ran terminal command: powershell -Command "(Invoke-WebRequest -UseBasicParsing -Uri http://localhost:3000 -TimeoutSec 5).StatusCode"
+
+Ran terminal command: start /B npm run dev
+
+Ran terminal command: powershell -Command "Start-Process npm -ArgumentList 'run','dev' -NoNewWindow"
+
+Ran terminal command: powershell -Command "Start-Process npx -ArgumentList 'next','dev','-p','3000' -NoNewWindow"
+
+Starting: *Update README and finalize deliverables* (7/7)
+
+Ran terminal command: npm run verify --silent
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm run verify --silent
+
+Ran terminal command: npm test
+
+Read [](file:///c%3A/Bug_Bash/25_11_21/v-coralhuang_25_11_21_case1/jest.config.js)
+
+Ran terminal command: npx jest --showConfig
+
+Ran terminal command: npx jest --clearCache
+
+Ran terminal command: npm test --silent
+
+Using "Apply Patch"
+
+
+```
+
+```
+
+
+Ran terminal command: npm test --silent
+
+Ran terminal command: npm run verify --silent
+
+Completed: *Update README and finalize deliverables* (7/7)
+
+GitHub Copilot — using vsc-5mini-mix21-arm3-run3-s435-1119.
+
+I implemented a fixed, tested Debug To-Do app (kept your original input.ts untouched) and added automation & docs so you can verify everything in one command.
+
+What I changed / added
+- New, fixed React component: DebugToDoList.tsx
+  - Prevents adding empty/whitespace tasks
+  - Uses immutable updates (no splice/direct mutation)
+  - Unique ids for keys (no missing key prop)
+  - Corrected Tailwind class (bg-blue-500) and improved UI
+- Next.js scaffolding for dev preview:
+  - pages/_app.tsx, index.tsx
+  - styles/globals.css, tailwind/postcss configs (kept minimal)
+- Tests with Jest + React Testing Library:
+  - DebugToDoList.test.tsx — verifies empty validation, add/toggle/delete behavior
+  - jest setup/config added and ts-jest configured to handle Next.js TS changes
+- Scripts & automation:
+  - package.json scripts: dev, build, start, test, verify
+  - setup.sh (install deps) and reset.sh (clean environment)
+- README.md with setup / test instructions
+
+How to run locally
+1. Install dependencies:
+   - Windows/Unix: setup.sh
+   - or: npm install
+2. Start dev server (Next.js): npm run dev
+   - App expected at: http://localhost:3000
+3. Run tests / verify in one command:
+   - npm run verify
+
+Notes / verification
+- I added automated tests that will fail if the required bug fixes are missing and pass now.
+- Next.js may adjust tsconfig.json at runtime; tests use ts-jest override so TSX tests still compile correctly.
+- I did not modify the original input.ts file as requested.
+
+If you'd like I can:
+- Add Playwright or e2e tests,
+- Convert to a plain static demo instead of Next.js,
+- Add a prettier/eslint configuration, or
+- Improve styling/animations further.
+
+Made changes.

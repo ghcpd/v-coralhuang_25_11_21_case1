@@ -1,0 +1,396 @@
+You are a web developer working inside a persistent code execution session.
+
+Goal
+Follow the user request to build or modify a web application or static webpage.
+Work iteratively: plan → edit → run → verify → refine.
+Keep each code change minimal, explain what you did, and ensure the app runs successfully after each step.
+Ensure the project includes automated tests to verify the correctness of modifications, a reusable environment, and a detailed README.
+The automated tests must validate whether the required changes have been implemented correctly, ensuring the deliverable is verified by code.
+
+Workspace
+Work within the current directory without specifying a root directory.
+Do not modify the original input.ts file directly. Create a new file for any changes or debugging.
+Detect project type:
+If the user requests a Next.js / React / TypeScript app, treat it as a Next.js project.
+If the user requests a pure HTML/CSS/JS page, treat it as a static HTML project.
+Entrypoints
+Next.js app: Create a new file (e.g., DebugToDoList.jsx) for debugging or modifications.
+Static HTML app: Create a new file (e.g., debug.html) for debugging or modifications.
+Dev Server Rules
+For Next.js projects
+Start command: cd . && nohup yarn dev -p 3000 > /tmp/nextjs.log 2>&1 &
+Verify it serves successfully on port 3000 (http://localhost:3000 → HTTP 200).
+If errors occur:
+Inspect logs with tail -n 200 /tmp/nextjs.log.
+Fix and re-run until successful.
+For Static HTML projects
+Start lightweight Python server: cd . && nohup python3 -m http.server 3000 > html_server.log 2>&1 &
+Verify the page loads on port 3000 (http://localhost:3000 → HTTP 200).
+Tail logs with tail -n 100 /tmp/html_server.log if needed.
+Testing Automation
+Testing Framework: Use Jest and React Testing Library for Next.js projects, or Playwright for static HTML projects.
+Test Commands:
+For Next.js: yarn test to run all tests.
+For static HTML: npx playwright test to run all tests.
+Correctness Verification:
+Write automated tests to verify if the required modifications have been implemented correctly.
+For example:
+Check if empty task validation is implemented.
+Verify that state immutability is maintained.
+Ensure that key props are added to list items.
+Confirm that Tailwind CSS classes are applied correctly.
+These tests should fail if the required changes are not implemented and pass once the changes are correctly applied.
+One-Command Execution:
+Provide a single command (e.g., npm run verify) to run all tests and verify correctness.
+Add this command to the scripts section of package.json:
+Reusable Environment
+Dependencies:
+Use package.json to define all dependencies.
+Include react, react-dom, tailwindcss, and testing libraries.
+Environment Setup:
+Provide a setup.sh script to initialize the environment:
+Environment Reset:
+Provide a reset.sh script to clean and reset the environment:
+README
+Project Overview:
+Describe the purpose of the project (To-Do List with React and Tailwind CSS).
+Setup Instructions:
+Include steps to clone the repository, install dependencies, and start the server.
+Testing Instructions:
+Explain how to run tests and interpret results.
+Include the npm run verify command for one-command execution.
+Usage:
+Provide a brief guide on how to use the app.
+Known Issues:
+List any known bugs or limitations.
+Step-by-Step Method
+Understand & Plan
+
+Restate the user’s goal.
+Determine project type (Next.js vs HTML).
+Draft a short implementation plan and key files to modify.
+Setup / Inspection
+
+Ensure necessary base files exist (e.g., package.json for Next.js, or index.html for static).
+Initialize minimal working structure if missing.
+Implementation
+
+Edit or create files incrementally.
+Keep commits atomic and well-commented.
+Always ensure syntax correctness and build success before continuing.
+Run & Verify
+
+Start or restart the correct dev server.
+Check that http://localhost:3000 responds successfully.
+Fix any compile or runtime errors immediately.
+UI/UX
+
+Create visually stunning, modern designs with attention to aesthetics.
+Use proper color schemes, gradients, and visual hierarchy for engaging interfaces.
+Apply consistent spacing, typography, and component styling with Tailwind CSS.
+Implement smooth animations and transitions for professional polish.
+Ensure responsive layouts that look great on all screen sizes.
+Use semantic HTML and accessible components for usability.
+Add visual feedback for interactions (hover states, loading animations, etc.).
+Handle edge cases gracefully with elegant error states and empty data displays.
+Focus on clean, uncluttered layouts with proper whitespace and visual balance.
+Deliverables
+
+A working webapp served on port 3000.
+Automated tests with clear instructions to run them.
+Reusable environment setup and reset scripts.
+A detailed README file.
+Important Notes
+Work within the current directory without specifying a root directory.
+Do not modify the original input.ts file directly. Create a new file for any changes or debugging.
+Better first analyze the user request and create a plan for the webapp.
+Better identify relevant files and functions in the workspace before making changes.
+
+
+Changes
+
+Built a fresh Next.js 14 app shell (app/layout.tsx (line 1), app/page.tsx (line 1)) and a polished, state-safe task planner (components/TodoApp.tsx (line 1)) featuring validation, immutable updates, filters, and Tailwind-driven visuals that resolve the issues shown in the original input.ts.
+Wired Tailwind CSS globally (app/globals.css (line 1), tailwind.config.ts (line 1), postcss.config.mjs (line 1)) with gradients, shadows, and responsive spacing plus a concise Next config/metadata layer (next.config.mjs (line 1)).
+Added a Jest + React Testing Library suite (jest.config.ts (line 1), jest.setup.ts (line 1), __tests__/todo-app.test.tsx (line 1)) that guards against empty submissions, checks immutable toggles/deletes, and asserts CTA styling; TypeScript + ESLint configs (tsconfig.json (line 1), eslint.config.mjs (line 1)) keep the project strongly typed and lintable.
+Switched the toolchain to Yarn/Next in package.json (line 1) (React 18, Tailwind, Testing Library, scripts including yarn verify) and removed the obsolete npm lockfile to avoid conflicting workflows.
+Documented setup/usage/testing plus limitations in README.md (line 1) and supplied setup.sh (line 1)/reset.sh (line 1) for reproducible installs and clean resets.
+Testing
+
+Not run (the environment lacks a working node binary—yarn install fails with /mnt/.../yarn: exec: node: not found). Once Node 18+ is available, run ./setup.sh followed by yarn verify.
+Next Steps
+
+Ensure Node.js 18+ is installed on this machine (or added to $PATH), then execute ./setup.sh to install dependencies.
+Run yarn dev -p 3000 and visit http://localhost:3000 to verify the UI.
+Execute yarn verify to confirm the automated Jest suite passes.
+1 file changed
+
+Undo
+
+View all changes
+todo-app.test.tsx
++1
+-1
+
+yarn run v1.22.22
+$ next dev -p 3000
+'next' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+next isn’t available because dependencies haven’t been installed yet, so node_modules/.bin/next (the binary Yarn tries to execute for the dev script) doesn’t exist. Run the setup/install step first:
+
+./setup.sh     # or: PATH="/mnt/c/Program Files/nodejs:$PATH" yarn install
+That will install everything listed in package.json (line 1) (including Next.js) and drop the next executable into node_modules/.bin. After that, yarn dev will find it and start the server as described in README.md (line 7).
+
+⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::3000
+at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+at listenInCluster (node:net:1997:12)
+at Server.listen (node:net:2102:7)
+at C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\next\dist\server\lib\start-server.js:280:16
+at new Promise (<anonymous>)
+at startServer (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\next\dist\server\lib\start-server.js:191:11)
+at C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\next\dist\server\lib\start-server.js:310:52
+at Span.traceAsyncFn (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\next\dist\trace\trace.js:154:26)
+at process.<anonymous> (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\next\dist\server\lib\start-server.js:310:35)
+at process.emit (node:events:508:28) {
+code: 'EADDRINUSE',
+errno: -4091,
+syscall: 'listen',
+address: '::',
+port: 3000
+}
+
+Done in 0.98s.
+
+
+Port 3000 already has another process bound to it, so next dev -p 3000 can’t start. End the other server, then rerun yarn dev. To find and stop the blocker:
+
+# locate the PID using port 3000
+lsof -i :3000
+
+# terminate it (replace <pid>)
+kill <pid>
+# if it doesn’t stop, force it: kill -9 <pid>
+Once the port is free, run yarn dev again and it will boot normally on localhost:3000.
+
+windows how to kill
+
+
+On Windows you have two easy options:
+
+Command Prompt/PowerShell: netstat -ano | find ":3000" shows the PID using port 3000. Then taskkill /PID <pid> /F terminates it (replace <pid> with the number you saw).
+Task Manager: open it, go to the “Details” tab, sort by PID, select the matching process, and click “End task”.
+Free up the port this way, then rerun yarn dev.
+
+PS C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1> netstat -ano | find ":3000"
+FIND: 参数格式不正确
+
+
+find is treating  (line 3000) as an invalid option. In PowerShell/CMD on Windows you should use findstr instead:
+
+netstat -ano | findstr ":3000"
+That will list any connections listening on port 3000 with the PID in the last column. Then end it with:
+
+taskkill /PID <pid> /F
+(Replace <pid> with the number reported.) After the port is free, yarn dev can start normally.
+
+yarn run v1.22.22
+$ yarn test
+$ jest --runInBand
+Error: Jest: Failed to parse the TypeScript config file C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\jest.config.ts
+Error: Jest: 'ts-node' is required for the TypeScript configuration files. Make sure it is installed
+Error: Cannot find package 'ts-node' imported from C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules@jest\core\node_modules\jest-config\build\readConfigFileAndSetRootDir.js
+at readConfigFileAndSetRootDir (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules@jest\core\node_modules\jest-config\build\readConfigFileAndSetRootDir.js:116:13)
+at async readInitialOptions (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules@jest\core\node_modules\jest-config\build\index.js:403:13)
+at async readConfig (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules@jest\core\node_modules\jest-config\build\index.js:147:48)
+at async readConfigs (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules@jest\core\node_modules\jest-config\build\index.js:424:26)
+at async runCLI (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules@jest\core\build\cli\index.js:151:59)
+at async Object.run (C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\jest-cli\build\run.js:130:37)
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+Jest was trying to load jest.config.ts, which requires ts-node to execute TypeScript config files. Rather than adding another dependency, I replaced the config with a plain ESM file:
+
+Removed jest.config.ts and created jest.config.mjs (line 1) with the same Next/Jest settings so Node can execute it directly without ts-node.
+Please rerun yarn verify (or yarn test) now—Jest should start without the previous error.
+
+1 file changed
+
+Undo
+
+View all changes
+jest.config.ts
++0
+-16
+
+$ yarn verify
+yarn run v1.22.22
+$ yarn test
+$ jest --runInBand
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module 'C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\node_modules\next\jest' imported from C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1\jest.config.mjs
+Did you mean to import "next/jest.js"?
+at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+at moduleResolve (node:internal/modules/esm/resolve:864:10)
+at defaultResolve (node:internal/modules/esm/resolve:990:11)
+at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20)
+at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:793:38)
+at ModuleLoader.resolveSync (node:internal/modules/esm/loader:816:52)
+at #cachedResolveSync (node:internal/modules/esm/loader:776:25)
+at ModuleLoader.getModuleJobForRequire (node:internal/modules/esm/loader:474:50)
+at #link (node:internal/modules/esm/module_job:447:34)
+at new ModuleJobSync (node:internal/modules/esm/module_job:420:17)
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command
+
+
+Updated jest.config.mjs (line 1) to import next/jest.js, matching the module path Node expects on Windows. This fixes the “Did you mean to import next/jest.js?” error. Please rerun yarn verify; Jest should now load the config without issue.
+
+1 file changed
+
+Undo
+
+View all changes
+jest.config.mjs
++1
+-1
+
+$ yarn verify
+yarn run v1.22.22
+$ yarn test
+$ jest --runInBand
+FAIL tests/todo-app.test.tsx
+● Test suite failed to run
+
+Cannot find module '@testing-library/dom' from 'node_modules/@testing-library/react/dist/pure.js'
+
+Require stack:
+  node_modules/@testing-library/react/dist/pure.js
+  node_modules/@testing-library/react/dist/index.js
+  __tests__/todo-app.test.tsx
+
+  4 |
+  5 | describe("TodoApp", () => {
+> 6 |   it("renders hero copy and gradient CTA", () => {
+    |                ^
+  7 |     render(<TodoApp />);
+  8 |
+  9 |     expect(screen.getByText(/plan the perfect day/i)).toBeInTheDocument();
+
+  at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+  at Object.<anonymous> (node_modules/@testing-library/react/dist/pure.js:46:12)
+  at Object.<anonymous> (node_modules/@testing-library/react/dist/index.js:7:13)
+  at Object.<anonymous> (__tests__/todo-app.test.tsx:6:16)
+Test Suites: 1 failed, 1 total
+Tests: 0 total
+Snapshots: 0 total
+Time: 1.673 s
+Ran all test suites.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+The tests failed because @testing-library/react depends on @testing-library/dom, which wasn’t installed. I added "@testing-library/dom": "10.4.0" to the devDependencies section of package.json (line 20). Please run yarn install (or rerun ./setup.sh) so the new package is installed, then execute yarn verify again—the Jest suite should now run successfully.
+
+1 file changed
+
+Undo
+
+View all changes
+package.json
++1
+-0
+
+$ yarn verify
+yarn run v1.22.22
+$ yarn test
+$ jest --runInBand
+FAIL tests/todo-app.test.tsx
+● Test suite failed to run
+
+Cannot find module '@testing-library/dom' from 'node_modules/@testing-library/react/dist/pure.js'
+
+Require stack:
+  node_modules/@testing-library/react/dist/pure.js
+  node_modules/@testing-library/react/dist/index.js
+  __tests__/todo-app.test.tsx
+
+  4 |
+  5 | describe("TodoApp", () => {
+> 6 |   it("renders hero copy and gradient CTA", () => {
+    |                ^
+  7 |     render(<TodoApp />);
+  8 |
+  9 |     expect(screen.getByText(/plan the perfect day/i)).toBeInTheDocument();
+
+  at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+  at Object.<anonymous> (node_modules/@testing-library/react/dist/pure.js:46:12)
+  at Object.<anonymous> (node_modules/@testing-library/react/dist/index.js:7:13)
+  at Object.<anonymous> (__tests__/todo-app.test.tsx:6:16)
+Test Suites: 1 failed, 1 total
+Tests: 0 total
+Snapshots: 0 total
+Time: 1.452 s
+Ran all test suites.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+The updated package.json now lists @testing-library/dom, but it looks like the dependency wasn’t installed after the change—node_modules still lacks it, so Jest can’t find the package.
+
+From C:\GenAI\Bug_Bash\25_11_21\Codex\v-coralhuang_25_11_21_case1, run:
+
+yarn install
+(or rerun ./setup.sh). That will pull in the new devDependency and update yarn.lock. Once it finishes, run yarn verify again and the tests should pass.
+
+yarn verify
+yarn run v1.22.22
+$ yarn test
+$ jest --runInBand
+FAIL tests/todo-app.test.tsx
+TodoApp
+√ renders hero copy and gradient CTA (59 ms)
+√ prevents blank submissions and surfaces guidance (146 ms)
+× adds, toggles, and deletes tasks without mutating unrelated entries (664 ms)
+
+● TodoApp › adds, toggles, and deletes tasks without mutating unrelated entries
+
+expect(element).not.toHaveClass("line-through")
+
+Expected the element not to have class:
+  line-through
+Received:
+  flex-1 text-lg transition text-slate-500 line-through
+
+  43 |     await user.click(firstCheckbox);
+  44 |     const secondTaskText = screen.getByText("Polish UI");
+> 45 |     expect(secondTaskText).not.toHaveClass("line-through");
+     |                                ^
+  46 |
+  47 |     const deleteButtons = within(list).getAllByRole("button", { name: /delete/i });
+  48 |     await user.click(deleteButtons[0]);
+
+  at Object.toHaveClass (__tests__/todo-app.test.tsx:45:32)
+Test Suites: 1 failed, 1 total
+Tests: 1 failed, 2 passed, 3 total
+Snapshots: 0 total
+Time: 2.637 s
+Ran all test suites.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+Updated __tests__/todo-app.test.tsx (line 34) to target checkboxes by their associated task text instead of assuming order, so the “immutability” test now toggles the intended task and verifies the other entry stays untouched. Rerun yarn verify—the suite should pass.
